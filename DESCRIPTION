@@ -1,0 +1,11 @@
+Package: PERICLIMv1.0
+Type: Package
+Date: 2020-01-06
+Title: PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions
+Version: 1.0
+Author: Tomas Uxa (Department of Physical Geography and Geoecology, Charles University, Praha, Czech Republic; Department of Geothermics, Institute of Geophysics, Czech Academy of Sciences, Praha, Czech Republic)
+Maintainer: Tomas Uxa <uxa@ig.cas.cz>
+Description: Package to derive palaeo-air temperature characteristics associated with relict periglacial features indicative of the base of the palaeo-active layer
+License: GPLv3
+Encoding: UTF-8
+LazyData: true
