@@ -1,14 +1,14 @@
-\name{Aa}
-\alias{Aa}
+\name{MATWM}
+\alias{MATWM}
 \title{
-PERICLIMv1.0--Aa
+PERICLIMv1.0--MATWM
 }
 \description{
-Derivation of palaeo-air temperature characteristics from thaw depth with the magnitude of annual air temperature oscillations defined by temperature amplitude (Aa)
+Derivation of palaeo-air temperature characteristics from thaw depth with the magnitude of annual air temperature oscillations defined by mean air temperature of the warmest month (MATWM)
 }
 
 \usage{
-Aa(z, kt, vmc, nt, Aa, P, showInputs = TRUE)
+MATWM(z, kt, vmc, nt, MATWM, P, showInputs = TRUE)
 }
 
 \arguments{
@@ -16,7 +16,7 @@ Aa(z, kt, vmc, nt, Aa, P, showInputs = TRUE)
   \item{kt}{Thawed ground thermal conductivity [W/m/K]}
   \item{vmc}{Volumetric ground moisture content [--]}
   \item{nt}{Thawing n-factor [--]}
-  \item{Aa}{Annual air temperature amplitude [degC]}
+  \item{MATWM}{Mean air temperature of the warmest month [degC]}
   \item{P}{Period of air temperature oscillations [d]}
   \item{showInputs = TRUE}{Should the inputs be included in the output (TRUE by default)?}
 }
@@ -38,27 +38,31 @@ All the numerical inputs must be greater than 0. The moisture content has to be 
   \item{Its}{Ground-surface thawing index [degC.d]}
 }
 
+\section{Warning}{
+This solution should be utilized cautiously because it is highly sensitive to uncertainties in the air thawing index and the mean air temperature of the warmest month.
+}
+
 \examples{
 # Example code run with sample data:
 
-PERICLIMv1.0::Aa(z = 0.5, kt = 0.6, vmc= 0.3, nt = 1.2, Aa = 20, P = 365, showInputs = TRUE)
+PERICLIMv1.0::MATWM(z = 0.5, kt = 0.6, vmc= 0.3, nt = 1.2, MATWM = 3, P = 365, showInputs = TRUE)
 
 # If executed correctly, the output and input variables should be:
 
-# MAAT  = -6.803038
-# MATWM = 3.196962
-# MATCM = -16.803038
-# MATTS = 2.106637
-# MATFS = -9.963605
+# MAAT  = -5.301689
+# MATWM = 3.000000
+# MATCM = -13.603379
+# MATTS = 1.973573
+# MATFS = -8.123979
 # Ita   = 201.340664
-# Ifa   = -2684.449548
-# Lt    = 95.574463
-# Lf    = 269.425537
+# Ifa   = -2136.457259
+# Lt    = 102.018369
+# Lf    = 262.981631
 # Its   = 241.608796
 # z     = 0.5
 # kt    = 0.6
 # wmc   = 0.3
 # nt    = 1.2
-# Aa    = 20
+# Aa    = 16.603379
 # P     = 365
 }
