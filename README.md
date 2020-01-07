@@ -3,7 +3,7 @@ PERICLIMv1.0 is a simple modelling scheme that is designed to derive palaeo-air 
 
 The package is a supplementary material to the below publication, which details the model, evaluates its performance against modern data, and discusses its uncertainties and applicability, and thus it is advised to be read carefully before running the code:
 
-Uxa, T., Křížek, M., and Hrbáček, F.: PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions, Geosci. Model Dev. Discuss., Manuscript ID: gmd-2020-278, in review, 2020.
+Uxa, T., Křížek, M., and Hrbáček, F.: PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions, Geosci. Model Dev. Discuss., in review, 2020.
 
 Please cite the paper when using the package.
 
