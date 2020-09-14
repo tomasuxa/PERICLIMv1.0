@@ -1,7 +1,7 @@
 ## PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions
 PERICLIMv1.0 is a simple modelling scheme that allows to derive palaeo-air temperature characteristics associated with relict periglacial features indicative of the palaeo-active-layer thickness, and thus it is supposed to be used by periglacial geomorphologists interested in reconstructions of Quaternary palaeo-environments. It principally builds on an inverse solution of the Stefan equation, which is among the most commonly used analytical tools to estimate the thickness of the active layer. This way it deduces summer temperature conditions, which it further converts into annual and winter air temperature attributes through an annual air temperature range or a mean air temperature of the warmest month assuming a sine air temperature curve.
 
-The package is a supplementary material to the below publication, which details the model, tests the derivation of palaeo-air temperature characteristics, evaluates the model performance against modern data, and discusses its uncertainties and applicability, and thus it is advised to be read carefully before running the code:
+The package is a supplementary material to the below publication, which details the model, tests its viability to derive palaeo-air temperature characteristics, evaluates its performance against modern data, and discusses its uncertainties and applicability, and thus it is advised to be read carefully before running the code:
 
 Uxa, T., Křížek, M., and Hrbáček, F.: PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions, Geosci. Model Dev. Discuss., in revision, 2020.
 
