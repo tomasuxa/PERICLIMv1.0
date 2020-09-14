@@ -1,28 +1,28 @@
 \name{MATWM}
+
 \alias{MATWM}
-\title{
-PERICLIMv1.0--MATWM
-}
+
+\title{PERICLIMv1.0::MATWM}
+
 \description{
-Derivation of palaeo-air temperature characteristics from thaw depth with the magnitude of annual air temperature oscillations defined by mean air temperature of the warmest month (MATWM)
+Derivation of palaeo-air temperature characteristics from active-layer thickness with the magnitude of annual air temperature oscillations defined by mean air temperature of the warmest month (MATWM)
 }
 
-\usage{
-MATWM(z, kt, vmc, nt, MATWM, P, showInputs = TRUE)
-}
+\usage{MATWM(z, vmc, dbd, q, fc=c('fine','coarse'), nt, MATWM, showInputs = TRUE)}
 
 \arguments{
-  \item{z}{Thaw depth [m]}
-  \item{kt}{Thawed ground thermal conductivity [W/m/K]}
+  \item{z}{Active-layer thickness [m]}
   \item{vmc}{Volumetric ground moisture content [--]}
-  \item{nt}{Thawing n-factor [--]}
+  \item{dbd}{Dry ground bulk density [kg/m3]}
+  \item{q}{Ground quartz content [--]}
+  \item{fc}{Ground grain-size class ['fine' or 'coarse']}
+  \item{nt}{Ground-surface thawing n-factor [--]}
   \item{MATWM}{Mean air temperature of the warmest month [degC]}
-  \item{P}{Period of air temperature oscillations [d]}
-  \item{showInputs = TRUE}{Should the inputs be included in the output (TRUE by default)?}
+  \item{showInputs = TRUE}{Should the inputs be included among the outputs (TRUE by default)?}
 }
 
 \details{
-All the numerical inputs must be greater than 0. The moisture content has to be given as a decimal number with a maximum value of 1.
+All the numerical inputs must be greater than 0. The moisture and quartz contents must be given as a decimal number with a maximum value of 1. A maximum allowed value for the bulk density is set at 2700 kg/m3.
 }
 
 \value{
@@ -39,30 +39,32 @@ All the numerical inputs must be greater than 0. The moisture content has to be 
 }
 
 \section{Warning}{
-This solution should be utilized cautiously because it is highly sensitive to uncertainties in the air thawing index and the mean air temperature of the warmest month.
+This solution should be utilized cautiously because it is highly sensitive to uncertainties in the air thawing index as well as the mean air temperature of the warmest month.
 }
 
 \examples{
 # Example code run with sample data:
 
-PERICLIMv1.0::MATWM(z = 0.5, kt = 0.6, vmc= 0.3, nt = 1.2, MATWM = 3, P = 365, showInputs = TRUE)
+PERICLIMv1.0::MATWM(z = 0.5, vmc = 0.3, dbd = 1500, q = 0.4, fc = 'fine', nt = 1.2, MATWM = 1.9, showInputs = TRUE)
 
 # If executed correctly, the output and input variables should be:
 
-# MAAT  = -5.301689
-# MATWM = 3.000000
-# MATCM = -13.603379
-# MATTS = 1.973573
-# MATFS = -8.123979
-# Ita   = 201.340664
-# Ifa   = -2136.457259
-# Lt    = 102.018369
-# Lf    = 262.981631
-# Its   = 241.608796
+# MAAT  = -8.06965559495226
+# MATWM = 1.9
+# MATCM = -18.0393111899045
+# MATTS = 1.25823408572454
+# MATFS = -10.3984330754712
+# Ita   = 91.7503875413873
+# Ifa   = -3037.17467969896
+# Lt    = 72.9199666281127
+# Lf    = 292.080033371887
+# Its   = 110.100465049665
 # z     = 0.5
-# kt    = 0.6
-# wmc   = 0.3
+# vmc   = 0.3
+# dbd   = 1500
+# q     = 0.4
+# fc    = 'fine'
+# kt    = 1.31666362819073
 # nt    = 1.2
-# Aa    = 16.603379
-# P     = 365
+# Aa    = 19.9393111899045
 }
