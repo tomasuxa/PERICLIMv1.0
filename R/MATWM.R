@@ -1,25 +1,61 @@
 ################################################################################################################
 #
-# Derivation of palaeo-air temperature characteristics from thaw depth
+# Derivation of palaeo-air temperature characteristics from active-layer thickness
 # with the magnitude of annual air temperature oscillations defined by mean air temperature of the warmest month
 #
 ################################################################################################################
 
-MATWM <- function(z, kt, vmc, nt, MATWM, P, showInputs = TRUE) {
+MATWM <- function(z, vmc, dbd, q, fc=c('fine','coarse'), nt, MATWM, showInputs = TRUE) {
 
   # Checking for physically feasible values of the input parameters
-  if(z <= 0 |               # Thaw depth [m]
-     kt <= 0 |              # Thawed ground thermal conductivity [W/m/K]
-     vmc <= 0 | vmc > 1 |   # Volumetric ground moisture content [-]
-     nt <= 0 |              # Thawing n-factor [-]
-     MATWM <= 0 |           # Mean air temperature of the warmest month [degC]
-     P <= 0) {              # Period of air temperature oscillations [d]
+  if(z <= 0 | is.na(z) == TRUE |                   # Active-layer thickness [m]
+    vmc <= 0 | vmc > 1 | is.na(vmc) == TRUE |      # Volumetric ground moisture content [-]
+    dbd <= 0 | dbd > 2700 | is.na(dbd) == TRUE |   # Dry ground bulk density [kg/m3]
+    q < 0 | q > 1 | is.na(q) == TRUE |             # Ground quartz content [-]
+    fc != 'fine' & fc != 'coarse' |                # Ground grain-size class ['fine' or 'coarse']
+    nt <= 0 | is.na(nt) |                          # Ground-surface thawing n-factor [-]
+    MATWM <= 0 | is.na(MATWM)) {                      # Mean air temperature of the warmest month [degC]
 
-    return(NA)   # If any of the inputs is outside the physically feasible values then the solution returns NA
+    return(NA)   # If any of the inputs is outside the range of physically feasible values or the grain-size class is not set as 'fine' or 'coarse' then the solution returns NA
 
   } else {
 
-    # Calculation of ground-surface (Its) and air (Ita) thawing index required to reach the specific thaw depth through an inverse solution of the Stefan equation
+    # Calculation of thermal conductivity of thawed ground based on Johansen's (1977) thermal conductivity model [W/m/K]
+    kt <- function(vmc,dbd,q,fc) {
+
+      n <- 1 - dbd / 2700   # Porosity as a function of dry ground bulk density and typical density of solids (-)
+      S <- vmc / n          # Degree of saturation as a proportion of volumetric ground moisture content and ground porosity (-)
+
+      # Calculations specific for thermal conductivity of thawed fine-grained ground
+      if(any(fc == 'fine')) {
+        if(S <= 0.1 | S > 1) {   # Degree of saturation [-]
+          return(NA)             # If the degree of saturation is outside the given range then the solution returns NA
+        } else {
+          Ke <- log10(S) + 1     # Kersten number for thawed fine-grained ground (-)
+        }
+
+      } else {
+
+        # Calculations specific for thermal conductivity of thawed coarse-grained ground
+        if(S <= 0.05 | S > 1) {      # Degree of saturation [-]
+          return(NA)                 # If the degree of saturation is outside the given range then the solution returns NA
+        } else {
+          Ke <- 0.7 * log10(S) + 1   # Kersten number for thawed coarse-grained ground (-)
+        }
+      }
+
+      kw <- 0.57                                            # Thermal conductivity of water (W/m/K)
+      kq <- 7.7                                             # Thermal conductivity of quartz (W/m/K)
+      ifelse(q < 0.2 & fc == 'coarse', ko <- 3, ko <- 2)    # Thermal conductivity of non-quartz minerals (W/m/K)
+      ks <- kq^q * ko^(1 - q)                               # Thermal conductivity of solids as a function of thermal conductivity of quartz and non-quartz minerals (W/m/K)
+      kdry <- (0.135 * dbd + 64.7) / (2700 - 0.947 * dbd)   # Semi-empirical equation for dry thermal conductivity of ground (W/m/K)
+      ksat <- ks^(1 - n) * kw^n                             # Saturated thermal conductivity of thawed ground as a function of thermal conductivity of solids and water (W/m/K)
+
+      kt <- kdry + (ksat - kdry) * Ke                       # Final calculation of thawed ground themal conductivity of fine-grained ground (W/m/K)
+      return(kt)
+    }
+
+    # Calculation of ground-surface (Its) and air (Ita) thawing index required to reach the specific active-layer thickness through an inverse solution of the Stefan equation
     It <- function(z, kt, vmc, nt) {
       Its <- (z^2 * 334000 * vmc * 1000)/(2 * kt * 86400)   # Ground-surface thawing index [degC.d]
       Ita <- Its/nt                                         # Air thawing index [degC.d]
@@ -32,9 +68,9 @@ MATWM <- function(z, kt, vmc, nt, MATWM, P, showInputs = TRUE) {
       f4 <- function(T) {
         f3 <- function(T) {
           f2 <- function(T) {
-            f1 <- function(t) {T + (MATWM - T) * sin(2 * pi * t/P)}
+            f1 <- function(t) {T + (MATWM - T) * sin(2 * pi * t/365)}
           }
-          integrate(f2(T), lower = asin(-T/(MATWM - T)) * P/(2 * pi), upper = (pi - asin(-T/(MATWM - T))) * P/(2 * pi))$value
+          integrate(f2(T), lower = asin(-T/(MATWM - T)) * 365/(2 * pi), upper = (pi - asin(-T/(MATWM - T))) * 365/(2 * pi))$value
         }
         Ita - f3(T)
       }
@@ -46,22 +82,23 @@ MATWM <- function(z, kt, vmc, nt, MATWM, P, showInputs = TRUE) {
     }
 
     # Calculation of air temperature characteristics
-    It <- as.numeric(It(z, kt, vmc, nt))                       # Thawing indices [degC.d]
-    Its <- It[1]                                               # Ground-surface thawing index [degC.d]
-    Ita <- It[2]                                               # Air thawing index [degC.d]
-    MAAT <- MAAT(Ita, MATWM)                                   # Mean annual air temperature [degC]
-    Ifa <- MAAT * P - Ita                                      # Air freezing index [degC.d]
-    MATCM <- MAAT - (MATWM - MAAT)                             # Mean air temperature of the coldest month [degC]
-    Aa <- MATWM - MATCM                                        # Annual air temperature amplitude [degC]
-    Lt <- (pi - 2 * asin(-MAAT/(MATWM - MAAT))) * P/(2 * pi)   # Length of the thawing season [d]
-    Lf <- P - Lt                                               # Length of the freezing season [d]
-    MATTS <- Ita/Lt                                            # Mean air temperature of the thawing season [degC]
-    MATFS <- Ifa/Lf                                            # Mean air temperature of the freezing season [degC]
+    kt <- kt(vmc,dbd,q,fc)                                       # Thermal conductivity of thawed ground [W/m/K]
+    It <- as.numeric(It(z, kt, vmc, nt))                         # Thawing indices [degC.d]
+    Its <- It[1]                                                 # Ground-surface thawing index [degC.d]
+    Ita <- It[2]                                                 # Air thawing index [degC.d]
+    MAAT <- MAAT(Ita, MATWM)                                     # Mean annual air temperature [degC]
+    Ifa <- MAAT * 365 - Ita                                      # Air freezing index [degC.d]
+    MATCM <- MAAT - (MATWM - MAAT)                               # Mean air temperature of the coldest month [degC]
+    Aa <- MATWM - MATCM                                          # Annual air temperature amplitude [degC]
+    Lt <- (pi - 2 * asin(-MAAT/(MATWM - MAAT))) * 365/(2 * pi)   # Length of the thawing season [d]
+    Lf <- 365 - Lt                                               # Length of the freezing season [d]
+    MATTS <- Ita/Lt                                              # Mean air temperature of the thawing season [degC]
+    MATFS <- Ifa/Lf                                              # Mean air temperature of the freezing season [degC]
 
     # List of model outputs and inputs
-    if(showInputs==TRUE) {   # Output includes the input parameters
+    if(showInputs==TRUE) {   # Output includes the input parameters (including calculated thermal conductivity of thawed ground)
 
-      OutputsInputs <- c(MAAT, MATWM, MATCM, MATTS, MATFS, Ita, Ifa, Lt, Lf, Its, z, kt, vmc, nt, Aa, P)
+      OutputsInputs <- c(MAAT, MATWM, MATCM, MATTS, MATFS, Ita, Ifa, Lt, Lf, Its, z, vmc, dbd, q, fc, kt, nt, Aa)
 
     } else {   # Output excludes the input parameters
 
