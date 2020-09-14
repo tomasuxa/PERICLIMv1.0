@@ -5,7 +5,7 @@
 \title{PERICLIMv1.0::MATWM}
 
 \description{
-Derivation of palaeo-air temperature characteristics from active-layer thickness with the magnitude of annual air temperature oscillations defined by mean air temperature of the warmest month (MATWM), or rather its difference from the mean annual air temperature.
+Derivation of palaeo-air temperature characteristics from active-layer thickness with the magnitude of annual air temperature oscillations defined by the mean air temperature of the warmest month (MATWM), or rather its difference from the mean annual air temperature.
 }
 
 \usage{MATWM(z, vmc, dbd, q, fc=c('fine','coarse'), nt, MATWM, showInputs = TRUE)}
