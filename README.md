@@ -17,7 +17,7 @@ install_github("tomasuxa/PERICLIMv1.0")
 ### PERICLIMv1.0 schemes
 The package consists of two alternate schemes deriving past air temperature conditions that differ in how they define the magnitude of annual air temperature oscillations, but both provide identical outcomes if driven with compatible data.
 
-`PERICLIMv1.0::Aa(z, vmc, dbd, q, fc=c('fine','coarse'), nt, Aa, showInputs = TRUE)` utilizes the temperature range (Aa), that is, the difference between the mean air temperature of the warmest and coldest month, to define the magnitude of annual air temperature oscillations and its input parameters are as follows:
+`PERICLIMv1.0::Aa(z, vmc, dbd, q, fc=c('fine','coarse'), nt, Aa, showInputs = TRUE)` utilizes the air temperature range (Aa), that is, the difference between the mean air temperature of the warmest and coldest month, to define the magnitude of annual air temperature oscillations and its input parameters are as follows:
 
 Variable | Symbol | Unit
 :-------- | :------ | :----
