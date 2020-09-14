@@ -5,7 +5,7 @@
 \title{PERICLIMv1.0::Aa}
 
 \description{
-Derivation of palaeo-air temperature characteristics from active-layer thickness with the magnitude of annual air temperature oscillations defined by temperature range (Aa)
+Derivation of palaeo-air temperature characteristics from active-layer thickness with the magnitude of annual air temperature oscillations defined by the air temperature range (Aa), that is, the difference between the mean air temperature of the warmest and coldest month.
 }
 
 \usage{Aa(z, vmc, dbd, q, fc=c('fine','coarse'), nt, Aa, showInputs = TRUE)}
