@@ -5,17 +5,17 @@
 \title{PERICLIMv1.0::MATWM}
 
 \description{
-Derivation of palaeo-air temperature characteristics from active-layer thickness with the magnitude of annual air temperature oscillations defined by the mean air temperature of the warmest month (MATWM), or rather its difference from the mean annual air temperature.
+Derivation of palaeo-air temperature characteristics from palaeo-active-layer thickness with the magnitude of annual air temperature oscillations defined by the mean air temperature of the warmest month (MATWM), or rather its difference from the mean annual air temperature.
 }
 
-\usage{MATWM(z, vmc, dbd, q, fc=c('fine','coarse'), nt, MATWM, showInputs = TRUE)}
+\usage{MATWM(xi, phi, rho, q, fc = c('fine','coarse'), nt, MATWM, showInputs = TRUE)}
 
 \arguments{
-  \item{z}{Active-layer thickness [m]}
-  \item{vmc}{Volumetric ground moisture content [--]}
-  \item{dbd}{Dry ground bulk density [kg/m3]}
+  \item{xi}{Palaeo-active-layer thickness [m]}
+  \item{phi}{Volumetric ground moisture content [--]}
+  \item{rho}{Dry ground bulk density [kg/m3]}
   \item{q}{Ground quartz content [--]}
-  \item{fc}{Ground grain-size class ['fine' or 'coarse']}
+  \item{fc}{Ground grain-size class [--]}
   \item{nt}{Ground-surface thawing n-factor [--]}
   \item{MATWM}{Mean air temperature of the warmest month [degC]}
   \item{showInputs = TRUE}{Should the inputs be included among the outputs (TRUE by default)?}
@@ -45,7 +45,7 @@ This solution should be utilized cautiously because it is highly sensitive to un
 \examples{
 # Example code run with sample data:
 
-PERICLIMv1.0::MATWM(z = 0.5, vmc = 0.3, dbd = 1500, q = 0.4, fc = 'fine', nt = 1.2, MATWM = 1.9, showInputs = TRUE)
+PERICLIMv1.0::MATWM(xi = 0.5, phi = 0.3, rho = 1500, q = 0.4, fc = 'fine', nt = 1.2, MATWM = 1.9, showInputs = TRUE)
 
 # If executed correctly, the output and input variables should be:
 
@@ -59,9 +59,9 @@ PERICLIMv1.0::MATWM(z = 0.5, vmc = 0.3, dbd = 1500, q = 0.4, fc = 'fine', nt = 1
 # Lt    = 72.9199666281127
 # Lf    = 292.080033371887
 # Its   = 110.100465049665
-# z     = 0.5
-# vmc   = 0.3
-# dbd   = 1500
+# xi     = 0.5
+# phi   = 0.3
+# rho   = 1500
 # q     = 0.4
 # fc    = 'fine'
 # kt    = 1.31666362819073
