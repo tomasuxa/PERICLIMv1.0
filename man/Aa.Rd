@@ -5,17 +5,17 @@
 \title{PERICLIMv1.0::Aa}
 
 \description{
-Derivation of palaeo-air temperature characteristics from active-layer thickness with the magnitude of annual air temperature oscillations defined by the air temperature range (Aa), that is, the difference between the mean air temperature of the warmest and coldest month.
+Derivation of palaeo-air temperature characteristics from palaeo-active-layer thickness with the magnitude of annual air temperature oscillations defined by the air temperature range (Aa), that is, the difference between the mean air temperature of the warmest and coldest month.
 }
 
-\usage{Aa(z, vmc, dbd, q, fc=c('fine','coarse'), nt, Aa, showInputs = TRUE)}
+\usage{Aa(xi, phi, rho, q, fc = c('fine','coarse'), nt, Aa, showInputs = TRUE)}
 
 \arguments{
-  \item{z}{Active-layer thickness [m]}
-  \item{vmc}{Volumetric ground moisture content [--]}
-  \item{dbd}{Dry ground bulk density [kg/m3]}
+  \item{xi}{Palaeo-active-layer thickness [m]}
+  \item{phi}{Volumetric ground moisture content [--]}
+  \item{rho}{Dry ground bulk density [kg/m3]}
   \item{q}{Ground quartz content [--]}
-  \item{fc}{Ground grain-size class ['fine' or 'coarse']}
+  \item{fc}{Ground grain-size class [--]}
   \item{nt}{Ground-surface thawing n-factor [--]}
   \item{Aa}{Annual air temperature range [degC]}
   \item{showInputs = TRUE}{Should the inputs be included among the outputs (TRUE by default)?}
@@ -41,7 +41,7 @@ All the numerical inputs must be greater than 0. The moisture and quartz content
 \examples{
 # Example code run with sample data:
 
-PERICLIMv1.0::Aa(z = 0.5, vmc = 0.3, dbd = 1500, q = 0.4, fc = 'fine', nt = 1.2, Aa = 20, showInputs = TRUE)
+PERICLIMv1.0::Aa(xi = 0.5, phi = 0.3, rho = 1500, q = 0.4, fc = 'fine', nt = 1.2, Aa = 20, showInputs = TRUE)
 
 # If executed correctly, the output and input variables should be:
 
@@ -55,9 +55,9 @@ PERICLIMv1.0::Aa(z = 0.5, vmc = 0.3, dbd = 1500, q = 0.4, fc = 'fine', nt = 1.2,
 # Lt    = 72.8439168320769
 # Lf    = 292.156083167923
 # Its   = 110.100465049665
-# z     = 0.5
-# vmc   = 0.3
-# dbd   = 1500
+# xi     = 0.5
+# phi   = 0.3
+# rho   = 1500
 # q     = 0.4
 # fc    = 'fine'
 # kt    = 1.31666362819073
