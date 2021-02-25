@@ -22,7 +22,7 @@ Derivation of palaeo-air temperature characteristics from palaeo-active-layer th
 }
 
 \details{
-All the numerical inputs must be greater than 0. The moisture and quartz contents must be given as a decimal number with a maximum value of 1. A maximum allowed value for the bulk density is set at 2700 kg/m3.
+All the numerical inputs (except of the quartz content) must be greater than 0. The moisture and quartz contents must be given as a decimal number with a maximum value of 1. A maximum allowed value for the bulk density is set at 2700 kg/m3.
 }
 
 \value{
