@@ -59,7 +59,7 @@ Aa <- function(xi, phi, rho, q, fc = c('fine','coarse'), nt, Aa, showInputs = TR
     # Calculation of ground-surface (Its) and air (Ita) thawing index required to reach the given palaeo-active-layer thickness through an inverse solution of the Stefan equation
     It <- function(xi, kt, phi, nt) {
       Its <- (xi^2 * 334000 * phi * 1000) / (2 * kt * 86400)   # Ground-surface thawing index [degC.d]
-      Ita <- Its/nt                                            # Air thawing index [degC.d]
+      Ita <- Its / nt                                          # Air thawing index [degC.d]
       It <- list(Its, Ita)
       return(It)
     }
@@ -75,8 +75,8 @@ Aa <- function(xi, phi, rho, q, fc = c('fine','coarse'), nt, Aa, showInputs = TR
         }
         Ita - f3(T)
       }
-      # MAAT is searched in the right-closed interval (-Aa/2,0]; if the search fails then the solution returns NA
-      MAAT <- tryCatch(uniroot(f4, lower = -Aa / 2 + 0.001, upper = 0, tol = 0.001)$root, error=function(MAAT) NA)
+      # MAAT is searched in the right-closed interval (-Aa / 2, 0]; if the search fails then the solution returns NA
+      MAAT <- tryCatch(uniroot(f4, lower = -Aa / 2 + 0.001, upper = 0, tol = 0.001)$root, error = function(MAAT) NA)
       return(MAAT)
     }
 
