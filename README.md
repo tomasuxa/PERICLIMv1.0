@@ -1,9 +1,9 @@
 ## PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions
-PERICLIMv1.0 is a simple modelling scheme that allows to derive palaeo-air temperature characteristics associated with relict periglacial features indicative of the palaeo-active-layer thickness, and thus it is supposed to be used by periglacial geomorphologists interested in reconstructions of Quaternary palaeo-environments. It principally builds on an inverse solution of the Stefan equation, which is among the most commonly used analytical tools to estimate the thickness of the active layer. This way it deduces thawing-season temperature conditions, which it further converts into annual as well as freezing-season air temperature attributes.
+PERICLIMv1.0 is a simple modelling scheme that allows to derive palaeo-air temperature characteristics associated with relict periglacial features indicative of the palaeo-active-layer thickness, and thus it is supposed to be used by periglacial geomorphologists interested in reconstructions of Quaternary palaeo-environments. It principally builds on an inverse solution of the Stefan equation, which is among the most commonly used analytical tools to estimate the thickness of the active layer. This way it deduces thawing-season temperature conditions, which it further converts into annual as well as freezing-season air temperature attributes based on the assumed annual air temperature range.
 
 The package is a supplementary material to the below publication, which details the model, evaluates its performance against modern data, tests its viability to derive palaeo-air temperature characteristics, and discusses its uncertainties and applicability with respect to other palaeo-proxy records and/or model products, and thus the publication is advised to be read carefully before running the code:
 
-Uxa, T., Křížek, M., and Hrbáček, F.: PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions, Geosci. Model Dev. Discuss., in revision, 2020.
+Uxa, T., Křížek, M., and Hrbáček, F.: PERICLIMv1.0: A model deriving palaeo-air temperatures from thaw depth in past permafrost regions, Geosci. Model Dev. Discuss., accepted, 2021.
 
 Please cite the paper when using the package.
 
@@ -25,7 +25,7 @@ Palaeo-active-layer thickness | xi | m
 Volumetric ground moisture content | phi | –
 Dry ground bulk density | rho | kg/m3
 Ground quartz content | q | –
-Ground grain-size class | fc | -
+Ground grain-size class | fc | –
 Ground-surface thawing n-factor | nt | –
 Annual air temperature range | Aa | degC
 Should the inputs be included among the outputs (TRUE by default)? | showInputs | –
@@ -38,7 +38,7 @@ Palaeo-active-layer thickness | xi | m
 Volumetric ground moisture content | phi | –
 Dry ground bulk density | rho | kg/m3
 Ground quartz content | q | –
-Ground grain-size class | fc | -
+Ground grain-size class | fc | –
 Ground-surface thawing n-factor | nt | –
 Mean air temperature of the warmest month | MATWM | degC
 Should the inputs be included among the outputs (TRUE by default)? | showInputs | –
@@ -61,7 +61,7 @@ Palaeo-active-layer thickness | xi | m
 Volumetric ground moisture content | phi | –
 Dry ground bulk density | rho | kg/m3
 Ground quartz content | q | –
-Ground grain-size class | fc | -
+Ground grain-size class | fc | –
 Thermal conductivity of thawed ground | kt | W/m/K
 Ground-surface thawing n-factor | nt | –
 Annual air temperature range | Aa | degC
